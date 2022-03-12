@@ -5,7 +5,11 @@ class Settings:
 
     def __init__(self):
         """Initialize game settings."""
+        
         # screen settings
         self.screen_width = 1000
         self.screen_height = 600
         self.bg_color = (200, 200, 200)
+
+        # raindrop settings 
+        self.raindrop_speed = 0.5
