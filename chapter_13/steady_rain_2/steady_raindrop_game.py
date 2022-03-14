@@ -1,5 +1,5 @@
 #### Finished - Just need to add comments to each file explaining what code does
-
+# Check Notes
 
 import sys
 import pygame
@@ -69,16 +69,16 @@ class RaindropGame:
 
     def _update_raindrops(self):
         """Make raindrop move vertically down the screen"""
-        self.raindrops.update()
+        self.raindrops.update() # call update() method on all Raindrop instances in sprite group
 
-        make_new_drop = False
-        for raindrop in self.raindrops.copy():
-            if raindrop.check_disappeared():
-                self.raindrops.remove(raindrop)
-                make_new_drop = True
+        make_new_drop = False # set variable to false
+        for raindrop in self.raindrops.copy(): # loop through all raindrop instances in sprite group copy
+            if raindrop.check_disappeared(): # if method returns true, run indented code - method checks if raindrop instance is below bottom of screen
+                self.raindrops.remove(raindrop) # remove raindrop instance from sprite group
+                make_new_drop = True # change varible to True
 
-        if make_new_drop:
-            self._create_row(0)
+        if make_new_drop: # if variable form above has been changed to true, run indented code
+            self._create_row(0) # call create_row method and pass 0 as argument for row number - this makes new row appear at top of screen
 
     def _update_screen(self):
         """Update the screen"""
