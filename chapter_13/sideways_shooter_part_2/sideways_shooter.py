@@ -1,5 +1,4 @@
 #################### Check Notes
-
 #### TRY IT YOURSELF - Chapter 12 - Page 253 - Sideways Shooter
 import sys
 import pygame
