@@ -16,4 +16,5 @@ Python Crash Course by Eric Matthes.
 [Chapter 11](https://github.com/JohnK-Code/Python-Crash-Course/tree/main/chapter_11) - _Testing Your Code_ \
 [Chapter 12](https://github.com/JohnK-Code/Python-Crash-Course/tree/main/chapter_12) - _A Ship that Fires Bullets_ \
 [Chapter 13](https://github.com/JohnK-Code/Python-Crash-Course/tree/main/chapter_13) - _Aliens!_ \
+[Chapter 14](https://github.com/JohnK-Code/Python-Crash-Course/tree/main/chapter_14) - _Scoring_ \
 [Project 1](https://github.com/JohnK-Code/Python-Crash-Course/tree/main/Project_1/alien_invasion) - _Alien Invasion Project_
