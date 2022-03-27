@@ -1,4 +1,5 @@
 import pygame
+import random
 
 class Rectangle:
     """A class to manage the rectangle being shot at"""
@@ -26,4 +27,9 @@ class Rectangle:
     def update_position(self):
         """Move rectangle up and down the screen"""
         self.y += (self.settings.speed * self.settings.rect_direction)
+        self.rect.y = self.y
+
+    def relocate_rect(self):
+        """Relocate the rect to a random position on the right side of the screen"""
+        self.y = random.randint(2, self.settings.screen_height - self.settings.rect_height)
         self.rect.y = self.y

@@ -35,3 +35,8 @@ class Ship:
         if self.move_down and self.rect.bottom <= self.screen_rect.bottom:
             self.y += 1
             self.rect.y = self.y
+
+    def center_ship(self):
+        """Center the ship on the screen"""
+        self.rect.midleft = self.screen_rect.midleft
+        self.y = float(self.rect.y)
