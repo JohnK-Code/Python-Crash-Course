@@ -39,3 +39,9 @@ class Settings:
         self.ship_speed *= self.speedup_scale
         self.bullet_speed *= self.speedup_scale
         self.alien_speed *= self.speedup_scale
+
+    def pick_game_speed(self, speed):
+        """Pick a game speed at the start of the game"""
+        self.ship_speed *= speed
+        self.bullet_speed *= speed
+        self.alien_speed *= speed
