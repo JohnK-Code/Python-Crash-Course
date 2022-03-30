@@ -1,3 +1,5 @@
+import os.path
+
 class GameStats:
     """Track statistics for alien invasion"""
 
@@ -10,7 +12,11 @@ class GameStats:
         self.game_active = False
 
         # high score should never be reset
-        self.high_score = 0 
+        if os.path.exists("score.txt"):
+            with open("score.txt", 'r') as file:
+                self.high_score = int(file.read().replace('\n', ''))
+        else:
+            self.high_score = 0 
 
     def reset_stats(self):
         """Initialize statistics that can change during the game"""

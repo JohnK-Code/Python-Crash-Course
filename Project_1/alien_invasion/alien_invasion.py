@@ -1,4 +1,4 @@
-#### Check Notes
+#### Check Notes!!!!!!!!!!!
 
 import sys
 from time import sleep
@@ -20,56 +20,55 @@ class AlienInvasion:
     def __init__(self):
         """Initialize the game, and create game resources."""
         pygame.init()
-        self.settings = Settings()
+        self.settings = Settings() # create Settings() instance
 
-        self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
-        self.settings.screen_width = self.screen.get_rect().width
-        self.settings.screen_height = self.screen.get_rect().height
-        pygame.display.set_caption("Alien Invasion")
+        self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN) # create screen/surface/window
+        self.settings.screen_width = self.screen.get_rect().width # get the screen width and assign it to the screen_width attribute in the settings.py module
+        self.settings.screen_height = self.screen.get_rect().height # get the screen height and assign it to the screen_height attribute in the settings.py module
+        pygame.display.set_caption("Alien Invasion") # assign a caption to the game window
 
-        # Create an instance to store game statistics,
-        # and create a scoreboard 
-        self.stats = GameStats(self)
-        self.sb = Scoreboard(self)
+        self.stats = GameStats(self) # create GameStats() instance 
+        self.sb = Scoreboard(self) # create Scoreboard instance
+        self.ship = Ship(self) # create ship instance
 
-        self.ship = Ship(self)
-        self.bullets = pygame.sprite.Group()
-        self.aliens = pygame.sprite.Group()
+        self.bullets = pygame.sprite.Group() # create sprite group for bullets
+        self.aliens = pygame.sprite.Group() # create sprite group for aliens
 
-        self._create_fleet()
+        self._create_fleet() # call helper method to create fleet of aliens
 
-        # Make a play button
-        self.play_button = Button(self, "Play")
+        self.play_button = Button(self, "Play") # create a Button() instance and pass 'Play' as the messsage to be displayed
 
-        # Make level buttons
-        self.L1 = Level_button(self, self.play_button.x + 50, self.play_button.y + 60, "Easy")
-        self.L2 = Level_button(self, self.play_button.x + 50, self.L1.y + 110, "Medium")
-        self.L3 = Level_button(self, self.play_button.x + 50, self.L2.y + 110, "Hard")
+        self.L1 = Level_button(self, self.play_button.x + 50, self.play_button.y + 60, "Easy") # create Level_button instance and pass all the required arguments/parameters
+        self.L2 = Level_button(self, self.play_button.x + 50, self.L1.y + 110, "Medium") # create Level_button instance and pass all the required arguments/parameters
+        self.L3 = Level_button(self, self.play_button.x + 50, self.L2.y + 110, "Hard") # create Level_button instance and pass all the required arguments/parameters
 
     def run_game(self):
         """Start the main loop for the game."""
-        while True:
-            self._check_events()
+        while True: # run indented code while True
+            self._check_events() # call helper method - checks for keyboard and mouse events 
 
-            if self.stats.game_active:
-                self.ship.update()
-                self._update_bullets()
-                self._update_aliens()
+            if self.stats.game_active: # game_stats.py attribute is set to True, run indented code
+                self.ship.update() # call update() method on ship instance - update() method used to update the ships location
+                self._update_bullets() # call helper method _update_bullets() - used to update bullet location, check for collisions and remove old bullets
+                self._update_aliens() # call helper method _update_aliens - used to update alien position and check for collisions
 
-            self._update_screen()
+            self._update_screen() # call helper method - used to update game screen/window
 
     def _check_events(self):
         """Respond to keypresses and mouse events."""
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                sys.exit()
-            elif event.type == pygame.KEYDOWN:
-                self._check_keydown_events(event)
-            elif event.type == pygame.KEYUP:
-                self._check_keyup_events(event)
-            elif event.type == pygame.MOUSEBUTTONDOWN:
-                mouse_pos = pygame.mouse.get_pos()
-                self._check_button_clicked(mouse_pos)
+        for event in pygame.event.get(): # loop through pygame events
+            if event.type == pygame.QUIT: # if event equals QUIT, run indented code
+                f = open("score.txt", "w") # open file for writing
+                f.write(self.stats.high_score) # write string to open file - writes game_stats attribute highscore to file
+                f.close() # close file 
+                sys.exit() # exit interpreter 
+            elif event.type == pygame.KEYDOWN: # if pygame event equals KEYDOWN, run indented code 
+                self._check_keydown_events(event) # call helper function and pass event variable from for loop 
+            elif event.type == pygame.KEYUP: # if pygame event equals KEYUP, run indented code 
+                self._check_keyup_events(event) # call helper function and pass event variable from for loop
+            elif event.type == pygame.MOUSEBUTTONDOWN: # if pygame event equals MOUSEBUTTONDOWN, run indented code 
+                mouse_pos = pygame.mouse.get_pos() # get mouse position when clicked
+                self._check_button_clicked(mouse_pos) # call helper function and pass mouse position
 
     def _check_keydown_events(self, event):
         """Respond to keypresses."""
@@ -78,6 +77,9 @@ class AlienInvasion:
         elif event.key == pygame.K_LEFT:
             self.ship.moving_left = True
         elif event.key == pygame.K_q:
+            f = open("score.txt", "w")
+            f.write(str(self.stats.high_score))
+            f.close()
             sys.exit()
         elif event.key == pygame.K_SPACE:
             self._fire_bullet()
@@ -129,11 +131,19 @@ class AlienInvasion:
         # Hide mouse cursor
         pygame.mouse.set_visible(False)
 
+        # Play background music
+        self.background_sound = pygame.mixer.Sound("sounds/background.wav")
+        self.background_sound.set_volume(0.5)
+        self.background_sound.play(-1)
+
     def _fire_bullet(self):
         """Create a new bullet and add it to the bullets group."""
         if len(self.bullets) < self.settings.bullets_allowed:
             new_bullet = Bullet(self)
             self.bullets.add(new_bullet)
+            bullet_sound = pygame.mixer.Sound("sounds/shoot.wav")
+            bullet_sound.set_volume(0.2)
+            bullet_sound.play()
 
     def _update_bullets(self):
         """Update position of bullets and get rid of old bullets."""
@@ -158,6 +168,10 @@ class AlienInvasion:
             self.sb.prep_score()
             self.sb.check_high_score()
 
+            self._start_new_level()
+
+    def _start_new_level(self):
+        """Star a new level"""
         if not self.aliens:
             # Detroy existing bullets and create new fleet
             self.bullets.empty()
@@ -175,12 +189,8 @@ class AlienInvasion:
         """
         self._check_fleet_edges()
         self.aliens.update()
-
-        # Look for alien-ship collisions
         if pygame.sprite.spritecollideany(self.ship, self.aliens):
             self._ship_hit()
-
-        # Look for aliens hitting the bottom of the screen
         self._check_aliens_bottom()
 
     def _create_fleet(self):
@@ -239,11 +249,17 @@ class AlienInvasion:
             self._create_fleet()
             self.ship.center_ship()
 
+            # Play sound for ship getting hit 
+            self.explosion = pygame.mixer.Sound("sounds/explosion.wav")
+            self.explosion.play()
+
             # Pause
             sleep(0.5)
         else:
             self.stats.game_active = False
             pygame.mouse.set_visible(True)
+            self.background_sound.stop()
+            self.explosion.play()
 
     def _check_aliens_bottom(self):
         """Check if any aliens have reached the bottom of the screen"""
