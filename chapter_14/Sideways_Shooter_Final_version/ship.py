@@ -1,11 +1,13 @@
 #### TRY IT YOURSELF - Chapter 12 - Page 253 - Sideways Shooter Ship
 import pygame
+from pygame.sprite import Sprite
 
-class Ship:
+class Ship(Sprite):
     """A class to manage the ship."""
 
     def __init__(self, ss_game):
         """Initialize the ship and set it's starting position."""
+        super().__init__()
         self.screen = ss_game.screen
         self.screen_rect = ss_game.screen.get_rect()
         self.settings = ss_game.settings

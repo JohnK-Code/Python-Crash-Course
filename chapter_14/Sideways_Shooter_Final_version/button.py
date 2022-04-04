@@ -20,9 +20,11 @@ class Button:
         # The button message needs to be prepped only once 
         self._prep_msg(msg)
 
+        self.selected = False
+
     def _prep_msg(self, msg):
         """Turn msg into a rendered image and center text on the button"""
-        self.msg_image = self.font.render(msg, True, self.text_color, self.button_color)
+        self.msg_image = self.font.render(msg, True, self.text_color)
         self.msg_image_rect = self.msg_image.get_rect()
         self.msg_image_rect.center = self.rect.center
 
@@ -30,3 +32,7 @@ class Button:
         # Draw blank button and then draw message
         self.screen.fill(self.button_color, self.rect)
         self.screen.blit(self.msg_image, self.msg_image_rect)
+
+    def position_msg(self):
+        """Reposition msg image to fit on difficulty level buttons"""
+        self.msg_image_rect.center = self.rect.center
