@@ -1,0 +1,20 @@
+
+<!-- ########### Check Notes ########## -->
+
+{% extends 'blogs/base.html' %}
+
+{% block content %}
+
+    <a href="{% url 'blogs:new_post' %}">Create new post</a>
+
+    {% for post in posts %}
+        <hr>
+        <p>{{ post.title }} - ({{ post.date_added|date:'d M, Y H:i' }})</p>
+        <p>{{ post.text }}</p>
+        <p>
+            <a href="{% url 'blogs:edit_post' post.id %}">Edit post</a>
+        </p>
+        <br>
+    {% endfor %}
+
+{% endblock content %}
