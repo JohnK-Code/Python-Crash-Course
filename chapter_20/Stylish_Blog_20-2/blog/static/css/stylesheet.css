@@ -1,0 +1,21 @@
+html{
+	position: relative;
+	min-height:100%;
+}
+body{
+    margin:0 0 100px;
+}
+footer{
+    position:absolute;
+    left:0;
+    bottom:0;
+    height:50px;
+    width:100%;
+    overflow:hidden;
+    padding-top: 10px;
+}
+.form-label{
+    font-weight:500; 
+    padding-left: 2px; 
+    color: #28a745;
+}
