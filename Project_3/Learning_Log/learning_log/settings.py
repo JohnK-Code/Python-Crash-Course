@@ -13,6 +13,14 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 from pathlib import Path
 import os
 
+
+# for enviroment variables - John
+import environ 
+env = environ.Env()
+environ.Env.read_env()
+
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -20,13 +28,20 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
+
+
+
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-y005s8)6dsd$jtyo)-u^1!m2#r-a%y-7hu++_+!ge@@dao%sv4'
+SECRET_KEY = env('SECRET_KEY') # uses enviroment varible to store secret key
+
+
+
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', 'herokuapp.com'] # John
 
 
 # Application definition
@@ -136,6 +151,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 ####### My settings to redirect user who aren't logged in to the login page when trying to access a restricted page
 LOGIN_URL = 'users:login'
+
+
+
 
 # Heroku settings - John
 import django_heroku
